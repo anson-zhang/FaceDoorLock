@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Face Door Lock</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<script type="text/javascript">
+	function submit_key() {
+		var fd = new FormData(document.forms["uploadform"]);
+        $.ajax({
+            url: "upload.php",
+            type: "POST",
+            data: fd,
+            processData: false,
+            contentType: false,
+            success: function(response){
+            	var usjson = JSON.parse(response);
+            	document.getElementById("us").innerHTML = "<strong>" + usjson.upload_status + "</strong>";
+            	document.getElementById("us_div").style.display = "";
+            },
+            error: function(){}
+        });
+	}
+</script>
+<body>
+	<nav class="navbar navbar-default">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#">Face <kbd>Door</kbd> Lock</a>
+			</div>
+				<ul class="nav navbar-nav">
+	      		<li class="active"><a href="#">Upload Keys</a></li>
+	      		<li><a href="#">Manage Keys</a></li>
+	    	</ul>
+		</div>
+	</nav>
+	<div class = "container">
+		<form class="form-horizontal" name = "uploadform" id = "uploadform" action="javascript: submit_key();" method="post" enctype="multipart/form-data">
+			<div class="form-group">
+				<label class="control-label col-sm-2" for = "key_file">Key File:</label>
+				<div class="col-sm-10">
+					<input type="file" name = "file" id = "key_file" class="form-control">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-2" for = "key_name">Key Name:</label>
+				<div class="col-sm-10">
+					<input type="text" name = "key_name" id = "key_name" class="form-control">
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+					<button type="submit" class="btn btn-default">Submit</button>
+				</div>
+			</div>
+		</form>
+		<div>
+			<div class="col-sm-2">
+			</div>
+			<div class="alert alert-info col-sm-10" id = "us_div" style="display: none">
+				<p id = "us"></p>
+			</div>
+		</div>
+
+	</div>
+</body>
+</html>
