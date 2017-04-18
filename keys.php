@@ -40,7 +40,7 @@
 
 	for ($j = 0; $j < $i; ++$j){
 	echo
-		'<a href="keydelete.php?'.$array[$j].'"><img class = "img-rounded" vspace=30 hspace=30 align=left width=320 height=240 src='.$path.'/'.$array[$j].'></a>';
+		'<a href="keydelete.php?'.$array[$j].'"><img class = "img-rounded" vspace=30 hspace=30 align=left width=300 height=300 src='.$path.'/'.$array[$j].'></a>';
 	}
 	echo '
 		</div>

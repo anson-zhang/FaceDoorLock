@@ -40,7 +40,7 @@
 
 	for ($j = 0; $j < $i; ++$j){
 	echo
-		'<img class = "img-rounded" vspace=30 hspace=30 align=left width=320 height=240 src='.$path.'/'.$array[$j].'>';
+		'<a href="visitordelete.php?'.$array[$j].'"><img class = "img-rounded" vspace=30 hspace=30 align=left width=320 height=240 src='.$path.'/'.$array[$j].'></a>';
 	}
 	echo '
 		</div>
