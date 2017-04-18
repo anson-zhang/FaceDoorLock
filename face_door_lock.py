@@ -2,6 +2,7 @@ import os
 import cv2
 import numpy as np
 from PIL import Image
+import time
 
 #Define face cascade
 cascadePath = "haarcascade_frontalface_default.xml"
@@ -27,20 +28,25 @@ train_data('./FaceKeys');
 
 #Set video
 video_capture = cv2.VideoCapture(0)
-video_capture.set(cv2.cv.CV_CAP_PROP_FRAME_WIDTH,1080)
-video_capture.set(cv2.cv.CV_CAP_PROP_FRAME_HEIGHT,720)
+#video_capture.set(cv2.cv.CV_CAP_PROP_FRAME_WIDTH,1080)
+#video_capture.set(cv2.cv.CV_CAP_PROP_FRAME_HEIGHT,720)
 
+t_start = time.time()
+fps = 0
 while True:
 	ret, frame = video_capture.read()
 	image = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-	cv2.imwrite('./im.jpg', image)
-	faces = faceCascade.detectMultiScale(image, 1.2)
+	faces = faceCascade.detectMultiScale(image, 1.3)
 	for (x, y, w, h) in faces:
 		label_predict, conf = recognizer.predict(image[y: y + h, x: x + w])
-		if conf < 50.0:
+		if conf < 5000.0:
 			cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
 			cv2.putText(frame, str(label_predict), (x, y), cv2.FONT_HERSHEY_COMPLEX, 2, (0, 255 ,0))
 			cv2.putText(frame, str(conf), (x + w, y + h), cv2.FONT_HERSHEY_COMPLEX, 1, (0, 255 ,0))
+	fps = fps + 1
+	sfps = fps / (time.time() - t_start)
+	cv2.putText( frame, "FPS : " + str( int( sfps ) ), ( 100, 100 ), cv2.FONT_HERSHEY_COMPLEX, 2, ( 0, 255, 0 ), 2 )
+
 	cv2.imshow('Video', frame)
 	if cv2.waitKey(1) & 0xFF == ord('q'):
 		break
