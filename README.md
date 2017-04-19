@@ -2,7 +2,7 @@ Face Door Lock based on Raspberry PI
 
 Environment: Python 2.7 + Opencv 2 + Apache + PHP + Raspberry PI
 
-If you download it from github, you should create three new folders:
+If you downloaded it from github (https://github.com/anson-zhang/FaceDoorLock), you should create three new folders:
 
 FaceKeys: Place for the selfies
 
